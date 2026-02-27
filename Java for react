@@ -1,0 +1,172 @@
+        let n='let 변수';
+        console.log(n);
+
+        n='let 변수 다시 수정';
+        console.log(n);
+
+        //let 덮어쓰기가 가능하나 재선언 불가능
+
+        const n2='const변수';
+        console.log(n2);
+        //const 덮어쓰기(변수 재할당), 재선언 둘 다 불가능 
+        //const 기본타입 = 덮어쓰기 불가능
+
+
+
+        //      객체타입 = 덮어쓰기 가능
+              const obj={
+            name:'lee',
+            age:22
+        }
+        obj.name='kim'
+        console.log(obj.name);
+        
+      
+        const ary1=['a','b','c']
+        ary1[0] = 'd'
+        // 배열 또한 객체이므로 덮어쓰기 가능
+      
+        ary1.push('e')
+              
+        
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+<!-- js 리액트에서 많이 쓰는 문법 -->
+    <script>
+
+
+        const name1='tom'
+        const age = 30;
+
+        const msg = `내이름은${name1}이고 나이는 ${age}살이다`;
+        console.log(msg);
+        
+        function hi(){
+            return "tom";
+
+        }
+
+        const msg2=`인사해줘 ${hi()}~${age+2}~`
+        console.log(msg2);
+        //백틱 ` 에서도 함수 호출 가능 기억해두자
+
+
+
+
+    </script>
+
+  
+</body>
+
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+<!-- js 리액트에서 많이 쓰는 문법 -->
+    <script>
+
+
+        
+
+        // function fun1(val){
+        //     return val;
+        // }
+        // document.write(fun1(7));   //브라우저에 7 출력
+
+        // const fun2=function(val){ //일종의 변수식 형태로 익명함수(따라서 함수이름은 fun2)
+        //     return val;
+        // }
+        //         // val 매개변수
+        // const fun3=(val)=>{
+        //     return val;//{}안에 리턴 값; 화살표 함수에선 return 도 생략할 수 있다.
+        // }
+        // //또 화살표 함수 안에서 매개변수가 1개 일 경우 () {} 생략 가능
+        //  const fun4 = val => val;
+
+        //  const fun5 = (val1,val2) =>{
+        //     return val1+val2;
+        //  } //이와 같이 매개변수가 2개 이상일 경우 생략할 수 없다.
+
+        //  const fun6 = (val1,val2) => val1+val2;
+        //     //{}와 return은 생략할 수 있다.
+         
+            const fun7 = (val1,val2) =>(
+                {
+                name :val1,
+                age : val2
+                }
+            )
+            console.log(fun7('mike',25));
+            //응용하기
+            //console.log(fun7(prompt('이름입력'),prompt('나이입력')));
+            
+
+        // *** 함수 표현식(변수식) 함수는 호이스팅 X
+        // *** 또 화살표 함수는 호이스팅이 되지 않기에 출력문이나 실행문을 변수선언
+        // ,함수선언 아래에 해야함 (따라서 함수 호출은 뒤에서 !)
+            
+        
+
+        // const name1='tom'
+        // const age = 30;
+
+        // const msg = `내이름은${name1}이고 나이는 ${age}살이다`;
+        // console.log(msg);
+        
+        // function hi(){
+        //     return "tom";
+
+        // }
+
+        // const msg2=`인사해줘 ${hi()}~${age+2}~`
+        // console.log(msg2);
+        // //백틱 ` 에서도 함수 호출 가능 기억해두자
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <div class="frame">
+        <h1 class="head">제목</h1>
+        <p class="p">
+            재판부는 "피고인들은 형사처벌 전력이 없는 초범이지만 
+            개인적 이익을 위해 재직한 기업의 영업비밀을 이용했다"며 
+            "개별 기업에 피해뿐만 아니라 건전한 거래 질서에 악영향을 줬다"고 밝혔다.
+        </p>
+    </div>
+    <button id="btn1">클릭</button>
+
+    <script>
+        //div 태그 button 태그 추출
+        let f=document.querySelector(".frame")
+        let n=f.childNodes.length;
+
+        f.childNodes[1].style.color='red'//배열
+        //text 노드 (줄바꿈 + 공백)
+        //<h1>
+        //text 
+        //<p>
+        //text
+        //<button>
+        //text
+            let m=f.children.length;
+            alert(m)
+            //요소 노드 칠드런과 차일드노드
+    </script>
+
+  
+</body>
+
+</html>
+
+
+
+
