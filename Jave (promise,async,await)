@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+<script>
+    
+    //resolve,reject 를 받지 않은 상태;
+    //Pending 상태 (대기)  Promise {<pending>}
+
+    //=> 이 후에 성공/실패로 promise 상태를 바꿀 수 없다.
+    const promise = new Promise(()=>{
+        setTimeout(()=>{
+            console.log("hi");           
+        },3000)
+    })
+
+    console.log(promise);
+
+</script>
+  
+</body>
+</html>
+</html>
+
+
+//promise 비동기 작업이 맞이 할 미래의 완료 또는 실패와 그 결과값을 나타냄
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+<script>
+    
+    const promise = new Promise((resolve, reject)=>{
+        //실제로 비동기 작업 실행하는 함수 (executor);
+        setTimeout(()=>{
+           const n=100;
+
+           if (typeof n=== "number"){
+                resolve(n+100);
+           }
+           else{
+                reject('숫자 아님');
+           }
+        },3000); //3초 후에 promise 객체가 resolve (200) 으로 완료됨.
+    });
+
+        setTimeout(()=>{
+            console.log(promise); //Promise {<fulfilled>: 200}
+            
+        },4000)
+
+    console.log(promise);
+
+</script>
+  
+</body>
+</html>
+</html>
+
+//
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+<script>
+    
+    const promise = new Promise((resolve, reject)=>{
+        //실제로 비동기 작업 실행하는 함수 (executor);
+        setTimeout(()=>{
+           const n='100';
+
+           if (typeof n=== "number"){
+                resolve(n+100); //then으로 이동
+           }
+           else{
+                reject('숫자 아님');//catch로 이동
+           }
+        },3000); //3초 후에 promise 객체가 resolve (200) 으로 완료됨.
+    });
+        //then() -> 그 후에
+        promise.then((value)=>{
+            //execute 함수에서 resolve 호출하게 되면
+            //그 후 , 즉 then 메소드에 전달한 then 메소드 안에 있는 콜백함수 실행
+            //그러면서 동시에 resolve에 전달한 인자값을 매개변수로 제공.
+            console.log(value); // 200
+            //promise 로 출력하면 객체출력 됨 (promise)
+            
+        })
+        promise.catch((error)=>{
+            console.log(error);
+            
+        })
+    
+
+</script>
+  
+</body>
+</html>
+</html>
+
+//promise 객체에서 성공이라면 resolve 에서 then 으로 이동하고 
+// 실패라면 reject 에서 catch로 이동한다.
+//코드에 보이면 error 매개변수는 reject의 '숫자 아님' 을 가져온다.
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+<script>
+    
+    function func1(){
+        return new Promise((resolve)=>{
+            setTimeout(()=>{
+                resolve('2초 뒤 성공')
+            },2000)
+        })
+    }
+    //객체명이 없고 리턴값으로 받을 경우 함수명.then or catch
+    //func1().then or Promise().then
+    func1().then((msg)=>{
+        console.log(msg); //'2초 뒤 성공' 출력 
+        
+    },2000)
+</script>
+  
+</body>
+</html>
+</html>
+
+//객체명 없이 리턴값으로 받을 경우 함수명을 사용하여 코드진행
+//resolve의 값을 then 으로 전달 받아 msg 매개변수로 출력
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+<script>
+    
+    function func1(success){
+        return new Promise((resolve,reject)=>{
+            if(success){
+                resolve('성공');
+            }
+            else{
+                reject('실패');
+            }
+        })
+    }
+    //success 가 아닌 false 이기 때문에 catch로 이동
+    func1(false).then((msg)=>{
+        console.log(msg);
+        
+    })
+    .catch((error)=>{
+        console.log('에러처리',error);
+        
+    })
+    //1. Promise 객체 생성 -> 2.reject('실패') 실행 ->3. .then() 건너 뛰고 .catch 실행
+
+
+
+</script>
+  
+</body>
+</html>
+</html>
+
+
+//함수 호출을 할 때에 .then 이후 함수를 따로 적지 않고 .catch 를 바로 적어 이용할 수 있음.
+
+<!DOCTYPE html>
+<html lang="en">
+  <head> </head>
+  <body>
+    <script>
+        //async 함수는 항상 Promise 를 반환한다.
+        //return new Promise.resolve (name : gildong, id : hong)
+      async function test() {
+        return {
+          name: "gildong",
+          id: "hong",
+        };
+      }
+
+      console.log(test());   //Promise.resolve에 감싸져 출력 
+                             // Promise {<fulfilled>: {…}}
+    </script>
+  </body>
+</html>
+
+//promise 대신 사용하는 async
+
+<!DOCTYPE html>
+<html lang="en">
+  <head> </head>
+  <body>
+    <script>
+async function test() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {      // 여기 화살표 함수 괄호 → 중괄호로 변경
+      resolve({
+        name: "gildong",
+        id: "hong",
+      });
+    }, 2000);
+  });
+}
+
+//console.log(test());  //pending으로 출력됨(2초가 지나기 전에 출력되었기 때문임)
+test().then(value=>{
+    console.log(value)  // resolve의 값을 then으로 가져와 출력하기.(2초후에 출력됨)
+                        // ({name:'gildong', id : hong})
+})
+
+    </script>
+  </body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head> </head>
+  <body>
+    <script>
+
+        //코드진행
+        //0초 -> Promise 상태 pending
+        //2초 -> Promise 상태 fulfilled (resolve)
+    async function test(){ //async 는 Promise 반환
+        await new Promise ((resolve) => 
+        //Promise가 끝날 때 까지 함수 실행 멈춤
+            setTimeout(resolve,2000));
+
+        
+        return{
+            name : 'gildong',
+            id : 'hong',
+        }   //return Promise.resolve(name : 'gildong',id : hong)
+    }
+
+        function test2(){
+            test().then((result)=>{
+                console.log(result);
+        })
+        }
+    
+        test2(); //{name : 'gildong', id : 'hong'} 값만 출력
+
+    </script>
+  </body>
+</html>
+
+//async에 await을 사용하고 then으로 값을 받아와 출력하기
+
+<!DOCTYPE html>
+<html lang="en">
+  <head> </head>
+  <body>
+    <script>
+
+    function test(){
+        return new Promise ((resolve)=>{
+            setTimeout(()=>{
+                resolve({name : 'gildong', id : 'hong'})
+            },2000)  
+        })
+    }
+
+        function test2(){
+            test().then((result)=>{
+                console.log(result);
+        })
+        }
+    
+        test2(); //{name : 'gildong', id : 'hong'} 값만 출력
+
+    </script>
+  </body>
+</html>
+//위 코드를 async 제외하고 다시 만들어 보기
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head> </head>
+  <body>
+    <script>
+
+    async function test(){
+        await new Promise ((resolve) =>
+            setTimeout(resolve,2000));
+
+            return{
+                name : 'aa',
+                id : '123'
+            }       
+    }
+    //async 필요할 때 : 1. await 사용시 2. Promise 반환하게 만들고 싶을 때
+        async function test2() {
+            const data=await test(); //await : Promise 끝날 때(결과값 받을때) 까지 기다린다.
+            console.log(data);
+        }
+
+        test2();
+
+
+    </script>
+  </body>
+</html>
+
+
+//async 와 await은 한쌍 await 은 async 없이는 사용할 수 없다.
+//await 은 Promise끝날 때 (결과값을 받을 때) 까지 코드 진행을 기다린다. 
+//await 을 넣지 않았을 때 에는 먼저 pending 출력, 설정한 시간값 이후에 fulfilled로 변환
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head> </head>
+  <body>
+    <script>
+        //1초후 "1초 후 완료" 라는 데이터를 resolve하는 Promise 객체를 반환
+        function test(){
+            return new Promise ((resolve)=>{
+                setTimeout(()=>{
+                    resolve('1초 후 완료');
+                },1000);
+            })
+        }
+
+        async function start() {
+            console.log('시작');
+            const result = await test(); //Promise가 끝날 때 까지 기다림 -> resolve로 전달된 문자열 저장
+            console.log(result); //
+            console.log('끝');
+               
+        }
+        start();
+        
+    </script>
+  </body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head> </head>
+  <body>
+    <script>
+        console.log('홍길동');
+
+        function profile(id){
+            return new Promise((resolve, reject)=>{
+                setTimeout(()=>{
+                    if(id===1){
+                        resolve({id:1, name:'홍길동'});
+                    }
+                    else{
+                        reject('프로필 없음');
+                    }
+                },1000);
+            });
+        }
+        
+        console.log('이길동');
+
+        //id 값을 100으로 주고 then -> {id:1, name : '김길동'}, catch -> 프로필 없음 출력
+
+        // profile(100)
+        // .then ((user)=>
+        //     console.log(user))
+        // .catch ((error)=> 
+        //     console.log(error));
+
+        async function getProfile() {
+        try{ //예외가 나올 수 있는 코드들을 묶어놓기
+            const user = await profile(100); //실패상황 ( 1을 입력하면 성공해서 프로필 출력)
+            console.log(user);
+            
+        }   
+        catch(error){ //예외가 발생하면 catch 구문에서 처리
+            console.log(error); //실패해서 reject에서 넘어온 값 '프로필 없음 ' 이 출력 된다.
+            
+        }         
+        }
+        getProfile();
+        
+    </script>
+  </body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head> </head>
+  <body>
+    <script>
+        //체이닝
+        function step1(){
+            return Promise.resolve('1단계'); //promise를 반환받는 식 Promise.resolve
+        }
+        function step2(prev){
+            return Promise.resolve(`${prev} 2단계`);
+        }
+        function step3(prev){
+            return Promise.resolve(`${prev} 3단계`);
+        }
+        
+        async function run() {
+            const r1 = await step1();
+            const r2 = await step2(r1); //prev 파라미터를 받아야함 
+            const r3 = await step3(r2);
+            console.log(r3);
+            
+        }
+        run();
+
+
+
+        // step1() 
+        // .then(step2)
+        // .then(step3)
+        // .then((result)=>{
+        //     console.log(result);   //1단계 2단계 3단계         
+        // })
+
+        // //step1의 값이 step2로 저장, 그 후 step3으로 step,step2의 값이 저장 
+        // //결과적으로 1단계 2단계 3단계 모든 값이 들어감
+
+
+
+
+    </script>
+  </body>
+</html>
+
+
+//await 으로 받은 값은 비동기 함수의 인자로 직접 넘겨야함
+
