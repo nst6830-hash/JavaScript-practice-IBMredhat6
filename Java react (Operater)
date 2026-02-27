@@ -1,0 +1,33 @@
+    <script>
+    
+        // || 연산자 : 연산자의 왼쪽이 false 로 판정 되면 오른쪽 반환
+        //                    왼쪽이 true             그 값 반환 
+
+        const n=null; //false
+        const m= n||'문자열';
+        console.log(m); // 문자열
+        
+        const n2=20; //true
+        const m2= n2||'문자열';
+        console.log(m2); // 20
+
+        // && 연산자 : 왼쪽이 true 로 판정 되면 오른쪽 값 반환
+        //                  false로 판정 되면 왼쪽 값 반환
+        const n3=null; 
+        const m3= n &&'문자열';
+        console.log(m3); // null
+
+        const n4=100; 
+        const m4= n4 &&'문자열';
+        console.log(m4); // 문자열
+        
+    </script>
+
+
+//falsy 값
+//false
+//"" (비어있는 문자열)
+//null , 0 , undifined , NaN
+
+
+
