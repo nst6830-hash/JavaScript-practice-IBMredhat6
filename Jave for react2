@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    
+  <script>
+    //JSON javascript object notation (자바 스크립트 오브젝트 표기법)
+   const profile={
+    name :'tom',
+    age : 30
+   }                   //객체.변수
+   const msg=`내 이름은 ${profile.name}이고 ${profile.age}살이다`
+   console.log(msg);
+   
+   //2. 분할 대입(코드 간결화/가독성 증가/ 필요한 데이터만 추출가능 )
+
+//    const profile2={
+//     name2 : 'jack',
+//     age2 : 20,
+//     adr2 : 'suwon'
+//    } 
+
+//const {속성명} = 객체명;
+//    const {name2,age2,}= profile2;
+//    const msg2=`내 이름은 ${name2}이고 ${age2}살이고`
+//    console.log(msg2);
+//    //재선언 불가. 한번 사용 했다면 다음에 쓸 수 없다.
+//    const {adr2} = profile2;
+
+
+let profile2={
+    name2 : 'jack',
+    age2 : 20,
+    adr2 : 'suwon'
+   } 
+   //let 을 사용해도 한번만 사용할 수 있다.
+   let {name2,age2,adr2}= profile2;
+   const msg2=`내 이름은 ${name2}이고 ${age2}살이고${adr2}에산다`
+   console.log(msg2);
+   //재선언 불가. 한번 사용 했다면 다음에 쓸 수 없다.
+   //한번 더 사용하고 싶다면 별칭을 써준다
+   let {adr2 : addres, name2 : proName, age2 : proAge} = profile2;
+   const msg3=`내 이름은 ${proName}이고 ${proAge}살이고${addres}에산다`
+   console.log(msg3);
+
+
+   //3. 배열 : 분할대입
+
+   //배열
+   const ary=['gildong',34];
+   const msg4=`내이름은${ary[0]}이고${ary[1]}살이다`
+   console.log(msg4);
+
+   //분할대입
+   const [name,age]=ary;
+   const msg5=`내이름은${name}이고${age}살이다`
+   console.log(msg5);
+   
+
+   const [name22]=ary; //배열에서 분할 대입은 순서 기준 
+   console.log(name22);
+   
+   const [,age22]=ary; //2번째에 있는 배열을 사용할때엔 , 하나 3번째는 ,,둘 ...
+   console.log(age22);
+  
+   
+  </script>
+  
+</body>
+</html>
+</html>
